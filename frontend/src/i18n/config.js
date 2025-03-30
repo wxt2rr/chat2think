@@ -1,0 +1,84 @@
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: {
+        translation: {
+          welcome: 'Welcome to AI Image Generation',
+          generate: 'Generate Image',
+          prompt: 'Enter your prompt',
+          style: 'Select style',
+          size: 'Select size',
+          upload: 'Upload reference image',
+          generating: 'Generating...',
+          cancel: 'Cancel',
+          download: 'Download',
+          error: 'Error occurred',
+          login: 'Login',
+          register: 'Register',
+          logout: 'Logout',
+          username: 'Username',
+          password: 'Password',
+          confirmPassword: 'Confirm Password',
+          imageDescription: 'Enter your image description, select style and size, and optionally upload a reference image.',
+          promptPlaceholder: 'Example: A cute kitten playing in the sunlight with a beautiful garden background',
+          supportedFormats: 'Supports JPG and PNG formats',
+          realistic: 'Realistic',
+          anime: 'Anime',
+          artistic: 'Artistic',
+          allFieldsRequired: 'Please fill in all required fields',
+          passwordsDoNotMatch: 'Passwords do not match',
+          registrationFailed: 'Registration failed',
+          registering: 'Registering...',
+          invitationCode: '邀请码',
+          email: 'Email',
+          noAccountRegister: 'Register Now',
+          inviteCode: 'Invite Code',
+        }
+      },
+      zh: {
+        translation: {
+          welcome: 'AI图像生成',
+          generate: '生成图片',
+          prompt: '输入提示词',
+          style: '选择风格',
+          size: '选择尺寸',
+          upload: '上传参考图片',
+          generating: '生成中...',
+          cancel: '取消',
+          download: '下载',
+          error: '发生错误',
+          login: '登录',
+          register: '注册',
+          logout: '退出登录',
+          username: '用户名',
+          password: '密码',
+          confirmPassword: '确认密码',
+          imageDescription: '请输入您想要生成的图片描述，选择合适的风格和尺寸，也可以上传参考图片。',
+          promptPlaceholder: '例如：一只可爱的小猫咪在阳光下玩耍，背景是美丽的花园',
+          supportedFormats: '支持 JPG、PNG 格式',
+          realistic: '写实',
+          anime: '动漫',
+          artistic: '艺术',
+          allFieldsRequired: '请填写所有必填字段',
+          passwordsDoNotMatch: '两次输入的密码不一致',
+          registrationFailed: '注册失败',
+          registering: '注册中...',
+          invitationCode: '请输入邀请码',
+          email: '邮箱',
+          noAccountRegister: '去注册',
+          inviteCode: '邀请码',
+        }
+      }
+    },
+    lng: 'zh',
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false
+    }
+  });
+
+export default i18n;
