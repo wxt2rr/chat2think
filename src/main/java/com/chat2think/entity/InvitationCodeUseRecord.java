@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "invitation_codes")
-public class InvitationCode {
+@Table(name = "invitation_code_use_record")
+public class InvitationCodeUseRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,6 +19,10 @@ public class InvitationCode {
 
     @Column(nullable = false)
     private boolean used = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "used_by_user_id")
+    private User usedByUser;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InvitationCodeRepository extends JpaRepository<InvitationCode, Long> {
     InvitationCode findByCode(String code);
-    InvitationCode findByCodeAndUsedFalse(String code);
+
+    InvitationCode findUnUseInvitationCode();
 }

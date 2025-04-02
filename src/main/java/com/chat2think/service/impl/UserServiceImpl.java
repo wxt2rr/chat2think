@@ -1,10 +1,10 @@
 package com.chat2think.service.impl;
 
+import com.chat2think.entity.InvitationCodeUseRecord;
 import com.chat2think.entity.User;
 import com.chat2think.repository.UserRepository;
 import com.chat2think.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.chat2think.entity.InvitationCode;
-import com.chat2think.repository.InvitationCodeRepository;
 import com.chat2think.service.InvitationCodeService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -50,7 +49,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final InvitationCodeService invitationCodeService;
-    private final InvitationCodeRepository invitationCodeRepository;
 
     @Override
     @Transactional
@@ -62,20 +60,24 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("邮箱已被使用");
         }
 
-        InvitationCode code = invitationCodeService.validateAndUseInvitationCode(invitationCode);
-        if (code == null) {
-            code = new InvitationCode();
+        InvitationCode code = invitationCodeService.queryInvitationCode(invitationCode);
+        if (code == null || code.isUsed()) {
+            throw new RuntimeException("邀请码已经使用");
         }
-        code.setUsed(true);
-        code.setUsedByUser(user);
-        code.setUsedAt(LocalDateTime.now());
-        code.setCode(invitationCode);
 
         user.setEmail(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCode(invitationCode);
         User savedUser = userRepository.save(user);
-        invitationCodeRepository.save(code);
+
+        code.setUsed(true);
+        invitationCodeService.saveInvitationCode(code);
+
+        InvitationCodeUseRecord codeUseRecord = new InvitationCodeUseRecord();
+        codeUseRecord.setUsedByUser(savedUser);
+        codeUseRecord.setCode(invitationCode);
+        codeUseRecord.setUsed(true);
+        invitationCodeService.saveInvitationCodeUseRecord(codeUseRecord);
         return savedUser;
     }
 
