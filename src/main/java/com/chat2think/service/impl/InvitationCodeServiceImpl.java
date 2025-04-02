@@ -25,7 +25,7 @@ public class InvitationCodeServiceImpl implements InvitationCodeService {
 
     @Override
     public InvitationCode findUnUseInvitationCode() {
-        return invitationCodeRepository.findUnUseInvitationCode();
+        return invitationCodeRepository.findByUsedFalse();
     }
 
     @Override

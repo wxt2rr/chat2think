@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, IconButton, Box, useTheme, Button } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Box, useTheme, Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -8,6 +8,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import axios from 'axios';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
+import logoSvg from '../assets/logo.svg';
 
 const Navbar = ({ toggleTheme }) => {
   const theme = useTheme();
@@ -52,7 +53,31 @@ const Navbar = ({ toggleTheme }) => {
         boxShadow: theme.palette.mode === 'dark' ? '0 4px 6px -1px rgba(0, 0, 0, 0.1)' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
       }}
     >
-      <Toolbar sx={{ justifyContent: 'flex-end' }}>
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box 
+            component="img"
+            src={logoSvg}
+            alt="Logo"
+            sx={{ 
+              height: 32, 
+              width: 32,
+              display: 'block'
+            }}
+          />
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              fontWeight: 'bold',
+              background: 'linear-gradient(135deg, #6366f1 0%, #10b981 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: { xs: 'none', sm: 'block' }
+            }}
+          >
+            Chat2Think
+          </Typography>
+        </Box>
         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
           {!userInfo ? (
             <>
