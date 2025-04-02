@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://mysql:3306/account_center?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://mysql:3306/chat2think?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: chat2think
     password: chat2think_password
     driver-class-name: com.mysql.cj.jdbc.Driver
