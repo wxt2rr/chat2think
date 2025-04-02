@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://master.mysql.account-center.local.chuangkit.com:3306/account_center?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://master.mysql.account-center.local.chuangkit.com:3306/account_center?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: local_account_center_rw
     password: zF3eT64DZKS9idFXpSq4Yy32Bj9ZaFhf
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -39,7 +39,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        if (token != null) {
+        if (token != null && token.startsWith("Bearer ") && token.length() > 20 && !token.contains("undefined")) {
             Claims claims = Jwts.parser()
                     .setSigningKey("chat2think-secret-key")
                     .parseClaimsJws(token.replace("Bearer ", ""))
