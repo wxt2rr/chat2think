@@ -1,17 +1,17 @@
 spring:
   datasource:
-    url: jdbc:mysql://master.mysql.account-center.local.chuangkit.com:3306/account_center?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: local_account_center_rw
-    password: zF3eT64DZKS9idFXpSq4Yy32Bj9ZaFhf
+    url: jdbc:mysql://mysql:3306/account_center?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: chat2think
+    password: chat2think_password
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
   redis:
-    host: master.local.redis.chuangkit.com
+    host: redis
     port: 6379
-    password: account-center-sandbox@VIR3HzLqO5FWz7LluGcQ59RkWQfsTM
+    password: chat2think_redis_password
   messages:
     basename: i18n/messages
     encoding: UTF-8
