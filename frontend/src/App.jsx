@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const App = () => {
   const { t } = useTranslation();
-  const [mode, setMode] = useState('dark');
+  const [mode, setMode] = useState('light');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [userInfo, setUserInfo] = useState(null);

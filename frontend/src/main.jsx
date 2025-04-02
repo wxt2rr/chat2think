@@ -5,7 +5,7 @@ import App from './App';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     primary: {
       main: '#6366f1',
     },
@@ -13,12 +13,12 @@ const theme = createTheme({
       main: '#10b981',
     },
     background: {
-      default: '#0f172a',
-      paper: '#1e293b',
+      default: '#f8fafc',
+      paper: '#ffffff',
     },
     text: {
-      primary: '#f8fafc',
-      secondary: '#94a3b8',
+      primary: '#1e293b',
+      secondary: '#64748b',
     },
   },
   typography: {
@@ -36,7 +36,7 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+          background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
           minHeight: '100vh',
         },
       },
@@ -44,10 +44,11 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          background: 'rgba(30, 41, 59, 0.8)',
+          background: 'rgba(255, 255, 255, 0.9)',
           backdropFilter: 'blur(8px)',
           borderRadius: 16,
-          border: '1px solid rgba(99, 102, 241, 0.1)',
+          border: '1px solid rgba(148, 163, 184, 0.1)',
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
         },
       },
     },

@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface InvitationCodeRepository extends JpaRepository<InvitationCode, Long> {
     InvitationCode findByCode(String code);
 
-    InvitationCode findUnUseInvitationCode();
+    InvitationCode findByUsedFalse();
 }
