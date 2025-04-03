@@ -42,18 +42,18 @@ const App = () => {
         palette: {
           mode,
           primary: {
-            main: '#6366f1',
+            main: '#ec4899',
           },
           secondary: {
-            main: '#10b981',
+            main: '#f472b6',
           },
           background: {
-            default: mode === 'dark' ? '#0f172a' : '#f8fafc',
+            default: mode === 'dark' ? '#0f172a' : '#ffffff',
             paper: mode === 'dark' ? '#1e293b' : '#ffffff',
           },
           text: {
-            primary: mode === 'dark' ? '#f8fafc' : '#1e293b',
-            secondary: mode === 'dark' ? '#94a3b8' : '#64748b',
+            primary: mode === 'dark' ? '#f8fafc' : '#000000',
+            secondary: mode === 'dark' ? '#94a3b8' : '#000000',
           },
         },
         components: {
@@ -62,7 +62,7 @@ const App = () => {
               body: {
                 background: mode === 'dark'
                   ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'
-                  : 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+                  : '#ffffff',
                 minHeight: '100vh',
               },
             },
@@ -70,15 +70,15 @@ const App = () => {
           MuiCard: {
             styleOverrides: {
               root: {
-                background: mode === 'dark' ? 'rgba(30, 41, 59, 0.8)' : 'rgba(255, 255, 255, 0.9)',
+                background: mode === 'dark' ? 'rgba(30, 41, 59, 0.8)' : '#ffffff',
                 backdropFilter: 'blur(12px)',
                 borderRadius: 16,
                 boxShadow: mode === 'dark'
                   ? '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                   : '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
                 border: mode === 'dark'
-                  ? '1px solid rgba(99, 102, 241, 0.1)'
-                  : '1px solid rgba(148, 163, 184, 0.1)',
+                  ? '1px solid rgba(236, 72, 153, 0.1)'
+                  : '1px solid #000000',
               },
             },
           },

@@ -18,8 +18,13 @@ import {
   CardActions,
   LinearProgress,
   Typography,
-  Chip
+  Chip,
+  Popover
 } from '@mui/material';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import ImageIcon from '@mui/icons-material/Image';
+import PaletteIcon from '@mui/icons-material/Palette';
+import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import axios from 'axios';
 import LoginDialog from './LoginDialog';
 
@@ -37,6 +42,17 @@ const ImageGeneration = () => {
   const [generationId, setGenerationId] = useState(null);
   const [progress, setProgress] = useState(0);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [styleAnchorEl, setStyleAnchorEl] = useState(null);
+  
+  const handleStyleClick = (event) => {
+    setStyleAnchorEl(event.currentTarget);
+  };
+
+  const handleStyleClose = () => {
+    setStyleAnchorEl(null);
+  };
+
+  const stylePopoverOpen = Boolean(styleAnchorEl);
 
   const styles = [
     { value: 'realistic', label: t('realistic') },
@@ -286,179 +302,195 @@ const ImageGeneration = () => {
           clickable
         />
       </Box>
-      <TextField
-        fullWidth
-        multiline
-        rows={3}
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        margin="normal"
-        placeholder={t('promptPlaceholder')}
-        sx={{
-          '& .MuiOutlinedInput-root': {
-            background: '#ffffff',
-            borderRadius: 2,
-            transition: 'all 0.3s ease',
-            border: '1px solid #e2e8f0',
-            '&:hover': {
-              borderColor: '#6366f1',
-              '& > fieldset': {
-                borderColor: '#6366f1',
-                borderWidth: '1px'
+      <Box sx={{ display: 'flex', position: 'relative', mb: 4 }}>
+        <TextField
+          fullWidth
+          multiline
+          rows={3}
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          margin="normal"
+          placeholder={t('promptPlaceholder')}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              background: '#ffffff',
+              borderRadius: 2,
+              transition: 'all 0.3s ease',
+              border: '1px solid #fbcfe8',
+              '&:hover': {
+                borderColor: '#ec4899',
+                '& > fieldset': {
+                  borderColor: '#ec4899',
+                  borderWidth: '1px'
+                }
+              },
+              '&.Mui-focused': {
+                borderColor: '#ec4899',
+                '& > fieldset': {
+                  borderColor: '#ec4899',
+                  borderWidth: '1px'
+                }
               }
             },
-            '&.Mui-focused': {
-              borderColor: '#6366f1',
-              '& > fieldset': {
-                borderColor: '#6366f1',
-                borderWidth: '1px'
-              }
-            }
-          },
-          '& .MuiOutlinedInput-input': {
-            fontSize: '1rem',
-            lineHeight: 1.5
-          },
-          '& .MuiInputLabel-root': {
-            fontSize: '1rem',
-            '&.Mui-focused': {
-              color: '#6366f1'
-            }
-          }
-        }}
-      />
-      <Box sx={{ display: 'none' }}>
-        <FormControl fullWidth margin="normal">
-          <InputLabel sx={{
-            color: 'text.secondary',
-            fontSize: '1rem',
-            '&.Mui-focused': {
-              color: '#6366f1'
-            }
-          }}>{t('style')}</InputLabel>
-          <Select
-            value={style}
-            onChange={(e) => setStyle(e.target.value)}
-            sx={{
-              background: '#ffffff',
-              borderRadius: 2,
-              transition: 'all 0.3s ease',
-              '& .MuiSelect-select': {
-                fontSize: '1rem',
-                py: 1.5
-              },
-              '&:hover': {
-                borderColor: '#6366f1'
-              },
+            '& .MuiOutlinedInput-input': {
+              fontSize: '1rem',
+              lineHeight: 1.5,
+              paddingBottom: '60px' // 增加底部padding以容纳按钮
+            },
+            '& .MuiInputLabel-root': {
+              fontSize: '1rem',
               '&.Mui-focused': {
-                borderColor: '#6366f1'
-              },
-              '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: '#e2e8f0'
-              },
-              '&:hover .MuiOutlinedInput-notchedOutline': {
-                borderColor: '#6366f1',
-                borderWidth: '1px'
-              },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                borderColor: '#6366f1',
-                borderWidth: '1px'
+                color: '#ec4899'
               }
-            }}
-          >
-            {styles.map((item) => (
-              <MenuItem
-                key={item.value}
-                value={item.value}
-                sx={{
-                  '&:hover': {
-                    background: 'rgba(99, 102, 241, 0.1)'
-                  },
-                  '&.Mui-selected': {
-                    background: 'rgba(99, 102, 241, 0.2) !important'
-                  }
-                }}
-              >
-                {item.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth margin="normal">
-          <InputLabel sx={{
-            color: 'text.secondary',
-            fontSize: '1rem',
-            '&.Mui-focused': {
-              color: '#6366f1'
             }
-          }}>{t('size')}</InputLabel>
-          <Select
-            value={size}
-            onChange={(e) => setSize(e.target.value)}
-            sx={{
-              background: '#ffffff',
-              borderRadius: 2,
-              transition: 'all 0.3s ease',
-              '& .MuiSelect-select': {
-                fontSize: '1rem',
-                py: 1.5
-              },
-              '&:hover': {
-                borderColor: '#6366f1'
-              },
-              '&.Mui-focused': {
-                borderColor: '#6366f1'
-              },
-              '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: '#e2e8f0'
-              },
-              '&:hover .MuiOutlinedInput-notchedOutline': {
-                borderColor: '#6366f1',
-                borderWidth: '1px'
-              },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                borderColor: '#6366f1',
-                borderWidth: '1px'
-              }
-            }}
-          >
-            {sizes.map((item) => (
-              <MenuItem
-                key={item.value}
-                value={item.value}
-                sx={{
-                  '&:hover': {
-                    background: 'rgba(99, 102, 241, 0.1)'
-                  },
-                  '&.Mui-selected': {
-                    background: 'rgba(99, 102, 241, 0.2) !important'
-                  }
-                }}
-              >
-                {item.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
-<Box sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 2 }}>  
-        <Box sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          color: mode === 'dark' ? '#94a3b8' : '#475569',
-          fontSize: '0.9rem'
+          }}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{ display: 'none' }}
+          id="image-upload-button"
+        />
+        <label htmlFor="image-upload-button" style={{
+          position: 'absolute',
+          bottom: '15px',
+          left: '15px',
+          zIndex: 1
         }}>
-          <input
-            type="checkbox"
-            id="ratio-checkbox"
-            style={{ 
-              marginRight: '8px',
-              width: '16px',
-              height: '16px'
+          <Button
+            component="span"
+            variant="text"
+            size="small"
+            startIcon={<ImageIcon fontSize="small" sx={{ color: '#000000' }} />}
+            sx={{
+              color: '#000000',
+              fontSize: '0.85rem',
+              padding: '2px 8px',
+              minWidth: 'auto',
+              '&:hover': {
+                background: 'transparent',
+                color: '#666666'
+              }
             }}
-          />
-          <label htmlFor="ratio-checkbox">生图比例 1:1</label>
+          >
+            {t('upload', '参考图')}
+          </Button>
+        </label>
+        {/* 将选择风格和选择尺寸按钮移到参考图右边 */}
+        <Box sx={{ position: 'absolute', bottom: '15px', left: '100px', display: 'flex', gap: 2, zIndex: 1 }}>
+          <Button
+            component="span"
+            variant="text"
+            size="small"
+            onClick={handleStyleClick}
+            startIcon={<PaletteIcon fontSize="small" sx={{ color: '#000000' }} />}
+            sx={{
+              color: '#000000',
+              fontSize: '0.85rem',
+              padding: '2px 8px',
+              minWidth: 'auto',
+              '&:hover': {
+                background: 'transparent',
+                color: '#666666'
+              }
+            }}
+          >
+            {t('style')}
+          </Button>
+          <Button
+            component="span"
+            variant="text"
+            size="small"
+            startIcon={<AspectRatioIcon fontSize="small" sx={{ color: '#000000' }} />}
+            sx={{
+              color: '#000000',
+              fontSize: '0.85rem',
+              padding: '2px 8px',
+              minWidth: 'auto',
+              '&:hover': {
+                background: 'transparent',
+                color: '#666666'
+              }
+            }}
+            onClick={() => {
+              const sizeSelect = document.getElementById('size-select');
+              if (sizeSelect) {
+                sizeSelect.click();
+              }
+            }}
+          >
+            {t('size')}
+          </Button>
         </Box>
+        <Popover
+          open={stylePopoverOpen}
+          anchorEl={styleAnchorEl}
+          onClose={handleStyleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          PaperProps={{
+            sx: {
+              mt: 1,
+              borderRadius: 2,
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+              border: mode === 'dark' ? '1px solid rgba(236, 72, 153, 0.2)' : '1px solid rgba(244, 114, 182, 0.2)',
+            }
+          }}
+        >
+          <Box sx={{ p: 1, width: 150 }}>
+            {styles.map((item) => (
+              <Button
+                key={item.value}
+                fullWidth
+                onClick={() => {
+                  setStyle(item.value);
+                  handleStyleClose();
+                }}
+                sx={{
+                  justifyContent: 'flex-start',
+                  py: 1,
+                  textAlign: 'left',
+                  color: style === item.value ? '#ec4899' : (mode === 'dark' ? '#f8fafc' : '#1e293b'),
+                  backgroundColor: style === item.value ? (mode === 'dark' ? 'rgba(236, 72, 153, 0.2)' : 'rgba(244, 114, 182, 0.1)') : 'transparent',
+                  '&:hover': {
+                    backgroundColor: mode === 'dark' ? 'rgba(236, 72, 153, 0.2)' : 'rgba(244, 114, 182, 0.1)'
+                  }
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Box>
+        </Popover>
+      </Box>
+      {/* 移除了选择风格和选择尺寸的表单控件 */}
+<Box sx={{ mt: 2, mb: 2 }}>
+        {sourceImage && (
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            ml: 2,
+            color: '#ec4899',
+            fontSize: '0.9rem',
+            bgcolor: 'rgba(236, 72, 153, 0.1)',
+            px: 2,
+            py: 0.5,
+            borderRadius: '16px'
+          }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            {sourceImage.name}
+          </Box>
+        )}
       </Box>
 
       <Card sx={{
@@ -468,11 +500,11 @@ const ImageGeneration = () => {
         backdropFilter: 'blur(16px)',
         borderRadius: 3,
         overflow: 'hidden',
-        border: mode === 'dark' ? '1px solid rgba(99, 102, 241, 0.2)' : '1px solid rgba(148, 163, 184, 0.2)',
+        border: mode === 'dark' ? '1px solid rgba(236, 72, 153, 0.2)' : '1px solid rgba(244, 114, 182, 0.2)',
         transition: 'all 0.3s ease',
         '&:hover': {
           transform: 'translateY(-4px)',
-          boxShadow: '0 8px 24px rgba(99, 102, 241, 0.15)'
+          boxShadow: '0 8px 24px rgba(236, 72, 153, 0.15)'
         }
       }}>
         <Box sx={{ p: 3 }}>
@@ -492,21 +524,21 @@ const ImageGeneration = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '2px dashed rgba(99, 102, 241, 0.4)',
+                border: '2px dashed rgba(236, 72, 153, 0.4)',
                 borderRadius: 3,
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 background: mode === 'dark' ? 'rgba(30, 41, 59, 0.4)' : 'rgba(255, 255, 255, 0.6)',
                 '&:hover': {
-                  border: '2px dashed rgba(99, 102, 241, 0.8)',
-                  background: mode === 'dark' ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0.05)',
+                  border: '2px dashed rgba(236, 72, 153, 0.8)',
+                  background: mode === 'dark' ? 'rgba(236, 72, 153, 0.1)' : 'rgba(244, 114, 182, 0.05)',
                   transform: 'scale(1.02)'
                 }
               }}
             >
               <Box
                 component="img"
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='17 8 12 3 7 8'/%3E%3Cline x1='12' y1='3' x2='12' y2='15'/%3E%3C/svg%3E"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ec4899' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='17 8 12 3 7 8'/%3E%3Cline x1='12' y1='3' x2='12' y2='15'/%3E%3C/svg%3E"
                 sx={{ width: 48, height: 48, mb: 2, opacity: 0.8 }}
               />
               <Box sx={{ color: '#94a3b8', fontSize: '1.1rem', mb: 1 }}>
@@ -519,35 +551,57 @@ const ImageGeneration = () => {
           </label>
         </Box>
       </Card>
-      <Box sx={{ display: 'flex', gap: 2, mt: 3, justifyContent: 'space-between', alignItems: 'center' }}>
-        {generating && (
-          <Box sx={{ width: '100%', mb: 3 }}>
-            <LinearProgress
-              variant="determinate"
-              value={progress}
-              sx={{
-                height: 8,
+      {/* 将进度条保留在原位置 */}
+      {generating && (
+        <Box sx={{ width: '100%', mb: 3 }}>
+          <LinearProgress
+            variant="determinate"
+            value={progress}
+            sx={{
+              height: 8,
+              borderRadius: 4,
+              backgroundColor: mode === 'dark' ? 'rgba(236, 72, 153, 0.2)' : 'rgba(244, 114, 182, 0.1)',
+              '& .MuiLinearProgress-bar': {
                 borderRadius: 4,
-                backgroundColor: mode === 'dark' ? 'rgba(99, 102, 241, 0.2)' : 'rgba(99, 102, 241, 0.1)',
-                '& .MuiLinearProgress-bar': {
-                  borderRadius: 4,
-                  background: 'linear-gradient(135deg, #6366f1 0%, #10b981 100%)',
-                  transition: 'transform 0.4s ease'
-                }
-              }}
-            />
-          </Box>
-        )}
-
+                background: 'linear-gradient(135deg, #ec4899 0%, #f472b6 100%)',
+                transition: 'transform 0.4s ease'
+              }
+            }}
+          />
+        </Box>
+      )}
+      
+      {/* 添加清除和开始生成按钮到输入框右下角 */}
+      <Box sx={{ 
+        position: 'absolute', 
+        bottom: '15px',
+        right: '15px',
+        display: 'flex', 
+        gap: 2, 
+        zIndex: 2,
+        background: 'transparent'
+      }}>
         <Button
-          variant="text"
-          onClick={() => {}}
+          variant="contained"
+          size="small"
+          onClick={() => {
+            setPrompt('');
+            setSourceImage(null);
+            setError('');
+            setGeneratedImage(null);
+          }}
           sx={{
-            color: '#6b7280',
-            fontSize: '0.9rem',
+            background: '#ffffff',
+            color: '#000000',
+            px: 2,
+            py: 0.5,
+            fontSize: '0.85rem',
+            borderRadius: '8px',
+            transition: 'all 0.2s ease',
+            border: '1px solid #e2e8f0',
             '&:hover': {
-              background: 'transparent',
-              color: '#4b5563'
+              background: '#f8fafc',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
             }
           }}
         >
@@ -556,24 +610,43 @@ const ImageGeneration = () => {
         
         <Button
           variant="contained"
+          size="small"
           onClick={handleGenerate}
           disabled={!prompt || generating}
-          startIcon={generating ? <CircularProgress size={20} /> : null}
+          startIcon={generating ? <CircularProgress size={16} /> : null}
           sx={{
-            background: '#6366f1',
-            px: 3,
-            py: 1,
-            fontSize: '0.95rem',
+            background: '#ffffff',
+            color: '#000000',
+            px: 2,
+            py: 0.5,
+            fontSize: '0.85rem',
             borderRadius: '8px',
             transition: 'all 0.2s ease',
+            border: '1px solid #e2e8f0',
             '&:hover': {
-              background: '#4f46e5',
-              boxShadow: '0 2px 8px rgba(99, 102, 241, 0.3)'
+              background: '#f8fafc',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+            },
+            '&.Mui-disabled': {
+              background: '#f1f5f9',
+              color: '#94a3b8'
             }
           }}
         >
           {generating ? t('generating') : t('startGenerate', '开始生成')}
         </Button>
+      </Box>
+      
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        style={{ display: 'none' }}
+        id="image-upload-button"
+      />
+       
+      {/* 移除这里的按钮，已经移到输入框右下角 */}
+      <Box sx={{ display: 'none', gap: 2, mt: 3, justifyContent: 'center', alignItems: 'center' }}>
         {generating && (
           <Button
             variant="outlined"
@@ -610,30 +683,15 @@ const ImageGeneration = () => {
         <Alert
           severity="error"
           sx={{
-            mt: 4,
+            mt: 2,
             background: 'rgba(239, 68, 68, 0.1)',
-            color: '#fca5a5',
-            border: '1px solid rgba(239, 68, 68, 0.2)',
-            '& .MuiAlert-icon': {
-              color: '#ef4444'
-            }
+            color: '#ef4444'
           }}
         >
           {error}
         </Alert>
       )}
       
-      <Box sx={{ mt: 6, textAlign: 'center' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
-          <Typography variant="h6" sx={{ color: '#6366f1', fontWeight: 600, mr: 1 }}>INSPIRATION GALLERY</Typography>
-          <Box component="span" sx={{ display: 'inline-block', width: 20, height: 20 }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-            </svg>
-          </Box>
-        </Box>
-        <Typography variant="h5" sx={{ color: mode === 'dark' ? '#a5b4fc' : '#818cf8', fontWeight: 500, mb: 3 }}>灵感画廊</Typography>
-      </Box>
       <LoginDialog
         open={loginOpen}
         onClose={(success) => {

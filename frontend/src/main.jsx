@@ -13,12 +13,12 @@ const theme = createTheme({
       main: '#10b981',
     },
     background: {
-      default: '#f8fafc',
+      default: '#ffffff',
       paper: '#ffffff',
     },
     text: {
-      primary: '#1e293b',
-      secondary: '#64748b',
+      primary: '#000000',
+      secondary: '#000000',
     },
   },
   typography: {
@@ -36,7 +36,7 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+          background: '#ffffff',
           minHeight: '100vh',
         },
       },
@@ -44,10 +44,10 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          background: 'rgba(255, 255, 255, 0.9)',
+          background: '#ffffff',
           backdropFilter: 'blur(8px)',
           borderRadius: 16,
-          border: '1px solid rgba(148, 163, 184, 0.1)',
+          border: '1px solid #000000',
           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
         },
       },

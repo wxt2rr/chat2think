@@ -8,8 +8,6 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import axios from 'axios';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
-import logoSvg from '../assets/logo.svg';
-
 const Navbar = ({ toggleTheme }) => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
@@ -55,28 +53,6 @@ const Navbar = ({ toggleTheme }) => {
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Box 
-            component="img"
-            src={logoSvg}
-            alt="Logo"
-            sx={{ 
-              height: 32, 
-              width: 32,
-              display: 'block'
-            }}
-          />
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              fontWeight: 'bold',
-              background: 'linear-gradient(135deg, #6366f1 0%, #10b981 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              display: { xs: 'none', sm: 'block' }
-            }}
-          >
-            Chat2Think
-          </Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
           {!userInfo ? (

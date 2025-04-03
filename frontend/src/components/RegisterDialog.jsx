@@ -70,18 +70,21 @@ const RegisterDialog = ({ open, onClose }) => {
           borderRadius: 3,
           border: mode === 'dark' ? '1px solid rgba(99, 102, 241, 0.2)' : '1px solid rgba(148, 163, 184, 0.2)',
           maxWidth: 400,
-          width: '100%'
+          width: '100%',
+          boxShadow: mode === 'dark' ? '0 4px 6px -1px rgba(0, 0, 0, 0.1)' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
         }
       }}
     >
-      <DialogTitle component="div">
+      <DialogTitle sx={{ p: 3 }} component="div">
         <Typography
           variant="h6"
           sx={{
             textAlign: 'center',
             background: 'linear-gradient(135deg, #6366f1 0%, #10b981 100%)',
             WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
+            WebkitTextFillColor: 'transparent',
+            fontWeight: 600,
+            mb: 1
           }}
         >
           {t('register')}
@@ -99,7 +102,24 @@ const RegisterDialog = ({ open, onClose }) => {
             sx={{
               '& .MuiOutlinedInput-root': {
                 background: mode === 'dark' ? 'rgba(30, 41, 59, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(12px)'
+                backdropFilter: 'blur(12px)',
+                borderRadius: 2,
+                transition: 'all 0.3s ease',
+                border: mode === 'dark' ? '1px solid rgba(99, 102, 241, 0.2)' : '1px solid #e2e8f0',
+                '&:hover': {
+                  borderColor: '#6366f1',
+                  '& > fieldset': {
+                    borderColor: '#6366f1',
+                    borderWidth: '1px'
+                  }
+                },
+                '&.Mui-focused': {
+                  borderColor: '#6366f1',
+                  '& > fieldset': {
+                    borderColor: '#6366f1',
+                    borderWidth: '1px'
+                  }
+                }
               }
             }}
           />
@@ -114,7 +134,24 @@ const RegisterDialog = ({ open, onClose }) => {
             sx={{
               '& .MuiOutlinedInput-root': {
                 background: mode === 'dark' ? 'rgba(30, 41, 59, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(12px)'
+                backdropFilter: 'blur(12px)',
+                borderRadius: 2,
+                transition: 'all 0.3s ease',
+                border: mode === 'dark' ? '1px solid rgba(99, 102, 241, 0.2)' : '1px solid #e2e8f0',
+                '&:hover': {
+                  borderColor: '#6366f1',
+                  '& > fieldset': {
+                    borderColor: '#6366f1',
+                    borderWidth: '1px'
+                  }
+                },
+                '&.Mui-focused': {
+                  borderColor: '#6366f1',
+                  '& > fieldset': {
+                    borderColor: '#6366f1',
+                    borderWidth: '1px'
+                  }
+                }
               }
             }}
           />
@@ -129,7 +166,24 @@ const RegisterDialog = ({ open, onClose }) => {
             sx={{
               '& .MuiOutlinedInput-root': {
                 background: mode === 'dark' ? 'rgba(30, 41, 59, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(12px)'
+                backdropFilter: 'blur(12px)',
+                borderRadius: 2,
+                transition: 'all 0.3s ease',
+                border: mode === 'dark' ? '1px solid rgba(99, 102, 241, 0.2)' : '1px solid #e2e8f0',
+                '&:hover': {
+                  borderColor: '#6366f1',
+                  '& > fieldset': {
+                    borderColor: '#6366f1',
+                    borderWidth: '1px'
+                  }
+                },
+                '&.Mui-focused': {
+                  borderColor: '#6366f1',
+                  '& > fieldset': {
+                    borderColor: '#6366f1',
+                    borderWidth: '1px'
+                  }
+                }
               }
             }}
           />
@@ -143,7 +197,24 @@ const RegisterDialog = ({ open, onClose }) => {
             sx={{
               '& .MuiOutlinedInput-root': {
                 background: mode === 'dark' ? 'rgba(30, 41, 59, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(12px)'
+                backdropFilter: 'blur(12px)',
+                borderRadius: 2,
+                transition: 'all 0.3s ease',
+                border: mode === 'dark' ? '1px solid rgba(99, 102, 241, 0.2)' : '1px solid #e2e8f0',
+                '&:hover': {
+                  borderColor: '#6366f1',
+                  '& > fieldset': {
+                    borderColor: '#6366f1',
+                    borderWidth: '1px'
+                  }
+                },
+                '&.Mui-focused': {
+                  borderColor: '#6366f1',
+                  '& > fieldset': {
+                    borderColor: '#6366f1',
+                    borderWidth: '1px'
+                  }
+                }
               }
             }}
           />
@@ -153,7 +224,9 @@ const RegisterDialog = ({ open, onClose }) => {
               sx={{
                 mt: 2,
                 background: 'rgba(239, 68, 68, 0.1)',
-                color: '#fca5a5'
+                color: '#fca5a5',
+                borderRadius: 2,
+                border: '1px solid rgba(239, 68, 68, 0.2)'
               }}
             >
               {error}
@@ -169,7 +242,12 @@ const RegisterDialog = ({ open, onClose }) => {
               background: 'linear-gradient(135deg, #6366f1 0%, #10b981 100%)',
               '&:hover': {
                 background: 'linear-gradient(135deg, #4f46e5 0%, #059669 100%)'
-              }
+              },
+              borderRadius: 2,
+              textTransform: 'none',
+              fontWeight: 600,
+              py: 1.2,
+              boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.2)'
             }}
           >
             {loading ? t('registering') : t('register')}
